@@ -1,0 +1,41 @@
+import java.util.concurrent.TimeUnit;
+
+class TimerThread extends Thread {
+    @Override
+    public void run() {
+        int seconds = 0;
+        while (true) {
+            System.out.println("Пройшло " + seconds + " секунд");
+            seconds++;
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+class MessageThread extends Thread {
+    @Override
+    public void run() {
+        while (true) {
+            System.out.println("Минуло 5 секунд");
+            try {
+                TimeUnit.SECONDS.sleep(5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        TimerThread timerThread = new TimerThread();
+        timerThread.start();
+
+        MessageThread messageThread = new MessageThread();
+        messageThread.start();
+    }
+}
